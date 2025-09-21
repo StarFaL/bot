@@ -9,6 +9,7 @@ if (tg) {
   tg.MainButton?.hide(); // прячем основную кнопку Telegram (если мешает)
   window.addEventListener('resize', () => tg.expand());
   tg.enableClosingConfirmation();
+}
 
 // Получаем данные пользователя
 const user = tg?.initDataUnsafe?.user || {};
@@ -94,14 +95,13 @@ function submitHideTreasure() {
     alert('Введи опис скарбу!');
   }
 }
-}
+
 // --------------------------------------
 // Инициализация приложения при загрузке
 document.addEventListener('DOMContentLoaded', () => {
   tg?.expand();
   showScreen('start-screen');
   
-  const username = user.username || `${user.first_name || ''} ${user.last_name || ''}`.trim();
   const usernameEl = document.getElementById('tg-username');
   if (usernameEl) {
     usernameEl.textContent = username ? `Вітаємо, @${username}!` : 'Вітаємо, гравець!';
