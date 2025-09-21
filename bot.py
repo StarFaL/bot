@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 API_TOKEN = "8281686986:AAFBe2vs24Fj0OydFIvkn9a9vxC6iH8Nq3U"
 bot = telebot.TeleBot(API_TOKEN)
-WEB_APP_URL = "https://29017df2b505.ngrok-free.app/index.html"
+WEB_APP_URL = "https://bot-eta-coral.vercel.app/"
 
 DATA_FILE = "data.json"
 data = {"players": {}, "prizes": {}}

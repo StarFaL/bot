@@ -1,9 +1,31 @@
 const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user?.id || null;
 
+// Инициализация приложения
+function initApp() {
+  tg.expand();
+  tg.enableClosingConfirmation();
+  
+  // Показываем стартовый экран
+  showScreen('start-screen');
+}
+
+// Показать экран
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.add('hidden');
+    s.classList.remove('opacity-100');
+    s.classList.add('opacity-0');
+  });
+  
+  setTimeout(() => {
+    const screen = document.getElementById(id);
+    screen.classList.remove('hidden');
+    setTimeout(() => {
+      screen.classList.remove('opacity-0');
+      screen.classList.add('opacity-100');
+    }, 10);
+  }, 10);
 }
 
 function showAgreement() {
@@ -40,5 +62,6 @@ function submitHideTreasure() {
   }
 }
 
-
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', initApp);
 tg.ready();
