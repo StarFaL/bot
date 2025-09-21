@@ -1,5 +1,3 @@
-// app.js
-
 // --------------------------------------
 // Инициализация Telegram WebApp
 const tg = window.Telegram?.WebApp;
@@ -19,30 +17,15 @@ const username = user.username || `${user.first_name || ''} ${user.last_name || 
 // --------------------------------------
 // Функции вибрации через Telegram HapticFeedback
 function vibrateTap() {
-  tg?.HapticFeedback?.impactOccurred("light"); // лёгкий "тап"
+  tg?.HapticFeedback?.impactOccurred("light"); 
 }
 
 function vibrateConfirm() {
-  tg?.HapticFeedback?.notificationOccurred("success"); // подтверждение
+  tg?.HapticFeedback?.notificationOccurred("success");
 }
 
 function vibrateError() {
-  tg?.HapticFeedback?.notificationOccurred("error"); // ошибка
-}
-
-
-// --------------------------------------
-// Функции вибрации
-function vibrateTap() {
-  if ("vibrate" in navigator) navigator.vibrate(50); // короткая вибрация
-}
-
-function vibrateConfirm() {
-  if ("vibrate" in navigator) navigator.vibrate(100); // подтверждение
-}
-
-function vibrateError() {
-  if ("vibrate" in navigator) navigator.vibrate([50, 50]); // два коротких сигнала
+  tg?.HapticFeedback?.notificationOccurred("error");
 }
 
 // --------------------------------------
@@ -66,10 +49,8 @@ function showScreen(id) {
 }
 
 // --------------------------------------
-// Функции для кнопок с вибрацией
-
+// Функции для кнопок
 function showAgreement() {
-  vibrateTap();
   showScreen('agreement-screen');
 }
 
@@ -80,7 +61,6 @@ function acceptAgreement() {
 }
 
 function showMainMenu() {
-
   const name = document.getElementById('player-name')?.value.trim();
   if (name) {
     vibrateConfirm();
@@ -93,7 +73,6 @@ function showMainMenu() {
 }
 
 function showSearchTreasures() {
-  vibrateTap();
   tg?.sendData(JSON.stringify({ action: 'get_treasures', user_id: userId }));
   showScreen('search-treasures');
 
@@ -102,12 +81,10 @@ function showSearchTreasures() {
 }
 
 function showHideTreasure() {
-  vibrateTap();
   showScreen('hide-treasure');
 }
 
 function submitHideTreasure() {
-
   const desc = document.getElementById('hide-description')?.value.trim();
   if (desc) {
     vibrateConfirm();
@@ -129,4 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (usernameEl) {
     usernameEl.textContent = username ? `Вітаємо, @${username}!` : 'Вітаємо, гравець!';
   }
+
+  // Автоматическая вибрация для всех кнопок
+  document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => vibrateTap());
+  });
 });
