@@ -6,7 +6,7 @@ const tg = window.Telegram?.WebApp;
 if (tg) {
   tg.ready();
   tg.expand();
-  tg.MainButton?.hide(); // прячем основную кнопку Telegram (если мешает)
+  tg.MainButton?.hide();
   window.addEventListener('resize', () => tg.expand());
   tg.enableClosingConfirmation();
 }
@@ -17,11 +17,17 @@ const userId = user.id || null;
 const username = user.username || `${user.first_name || ''} ${user.last_name || ''}`.trim();
 
 // --------------------------------------
-// Функция вибрации
-function vibrate() {
-  if ("vibrate" in navigator) {
-    navigator.vibrate(50); // короткая вибрация 50 мс
-  }
+// Функции вибрации
+function vibrateTap() {
+  if ("vibrate" in navigator) navigator.vibrate(50); // короткая вибрация
+}
+
+function vibrateConfirm() {
+  if ("vibrate" in navigator) navigator.vibrate(100); // подтверждение
+}
+
+function vibrateError() {
+  if ("vibrate" in navigator) navigator.vibrate([50, 50]); // два коротких сигнала
 }
 
 // --------------------------------------
@@ -48,50 +54,52 @@ function showScreen(id) {
 // Функции для кнопок с вибрацией
 
 function showAgreement() {
-  vibrate();
+  vibrateTap();
   showScreen('agreement-screen');
 }
 
 function acceptAgreement() {
-  vibrate();
+  vibrateConfirm();
   tg?.sendData(JSON.stringify({ action: 'accept_agreement', user_id: userId }));
   showScreen('profile-screen');
 }
 
 function showMainMenu() {
-  vibrate();
+  
   const name = document.getElementById('player-name')?.value.trim();
   if (name) {
+    vibrateConfirm();
     tg?.sendData(JSON.stringify({ action: 'set_profile', name, user_id: userId }));
     showScreen('main-menu');
   } else {
+    vibrateError();
     alert('Введи своє ім\'я!');
   }
 }
 
 function showSearchTreasures() {
-  vibrate();
+  vibrateTap();
   tg?.sendData(JSON.stringify({ action: 'get_treasures', user_id: userId }));
   showScreen('search-treasures');
 
   const list = document.getElementById('treasure-list');
-  if (list) {
-    list.innerHTML = '<p class="text-gray-300">Зачекай, завантажуємо скарби...</p>';
-  }
+  if (list) list.innerHTML = '<p class="text-gray-300">Зачекай, завантажуємо скарби...</p>';
 }
 
 function showHideTreasure() {
-  vibrate();
+  vibrateTap();
   showScreen('hide-treasure');
 }
 
 function submitHideTreasure() {
-  vibrate();
+
   const desc = document.getElementById('hide-description')?.value.trim();
   if (desc) {
+    vibrateConfirm();
     tg?.sendData(JSON.stringify({ action: 'hide_treasure', description: desc, user_id: userId }));
     showMainMenu();
   } else {
+    vibrateError();
     alert('Введи опис скарбу!');
   }
 }
@@ -101,7 +109,7 @@ function submitHideTreasure() {
 document.addEventListener('DOMContentLoaded', () => {
   tg?.expand();
   showScreen('start-screen');
-  
+
   const usernameEl = document.getElementById('tg-username');
   if (usernameEl) {
     usernameEl.textContent = username ? `Вітаємо, @${username}!` : 'Вітаємо, гравець!';
