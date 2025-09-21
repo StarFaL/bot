@@ -1,0 +1,34 @@
+.pirate-text {
+  font-family: 'Pirata One', cursive;
+  color: #d4a017;
+  text-shadow: 2px 2px #000;
+}
+.pirate-btn {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: #b45309; /* amber-700 */
+  color: #fde68a; /* yellow-300 */
+  border-width: 2px;
+  border-style: solid;
+  border-color: #b45309; /* amber-600 */
+  border-radius: 0.5rem;
+  font-size: 1.125rem; /* text-lg */
+  transition: background-color 0.2s;
+}
+.pirate-btn:hover {
+  background-color: #92400e; /* amber-800 */
+}
+.pirate-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #d97706; /* amber-600 */
+  background-color: transparent;
+  border-radius: 0.5rem;
+  text-align: center;
+  color: #fde68a; /* yellow-200 */
+}
