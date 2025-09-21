@@ -5,6 +5,7 @@ console.log(tg); // Проверка доступности Telegram.WebApp
 if (tg) {
   tg.ready();
   tg.expand();
+  tg.viewport.requestFullscreen(); // Добавлено для полноэкранного режима
   tg.MainButton?.hide();
   window.addEventListener('resize', () => tg.expand());
   tg.enableClosingConfirmation();
