@@ -5,6 +5,8 @@
 const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
+tg.MainButton.hide();         // прячем основную кнопку Telegram (если мешает)
+window.addEventListener('resize', () => tg.expand()); // повторно растягиваем при изменении размера экрана
 tg.enableClosingConfirmation();
 
 // Получаем данные пользователя
