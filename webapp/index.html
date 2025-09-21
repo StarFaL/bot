@@ -10,115 +10,150 @@
   <style>
     body {
       font-family: 'Press Start 2P', cursive;
+      background: #0A1929;
+    }
+    .pixel-border {
+      border: 4px solid #4FC3F7;
+      box-shadow: 0 0 0 2px #0A1929, 0 0 0 6px #4FC3F7;
+    }
+    .pixel-button {
+      border: 4px solid #4FC3F7;
+      box-shadow: 0 4px 0 #1565C0, 0 6px 0 #0A1929;
+      transition: all 0.1s;
+    }
+    .pixel-button:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 #1565C0, 0 2px 0 #0A1929;
+    }
+    .text-stroke {
+      text-shadow: 
+        -2px -2px 0 #0A1929,
+        2px -2px 0 #0A1929,
+        -2px 2px 0 #0A1929,
+        2px 2px 0 #0A1929;
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-[#0a1929] to-[#122b4a] text-gray-100 min-h-screen flex items-center justify-center p-5">
+<body class="min-h-screen flex items-center justify-center p-4">
   <div id="app" class="w-full max-w-md mx-auto">
     <!-- Стартовый экран -->
-    <div id="start-screen" class="screen flex flex-col items-center justify-between h-[600px] py-8 transition-opacity duration-300 opacity-100">
-      <div class="text-center mt-12">
-        <h1 class="text-[20px] text-[#4fc3f7] uppercase mb-6">MysteryDrop</h1>
-        <h2 class="text-[24px] text-white leading-tight mb-2">Полювання<br>за скарбами</h2>
+    <div id="start-screen" class="screen flex flex-col items-center justify-center h-[600px]">
+      <div class="text-center mb-12">
+        <h1 class="text-[28px] text-[#4FC3F7] uppercase mb-8 text-stroke">MysteryDrop</h1>
+        <h2 class="text-[32px] text-white leading-tight mb-2 text-stroke">Полювання<br>за скарбами</h2>
       </div>
-      <button onclick="showAgreement()" class="w-full bg-gradient-to-r from-[#1976d2] to-[#1565c0] text-white text-[14px] py-4 rounded-xl shadow-lg transition-transform active:scale-95">Почати</button>
+      <button onclick="showAgreement()" class="pixel-button bg-[#1976D2] text-white text-[20px] px-8 py-4 mt-16">
+        Почати
+      </button>
     </div>
 
-    <!-- Экран соглашения -->
-    <div id="agreement-screen" class="screen hidden flex-col h-[600px] transition-opacity duration-300 opacity-0">
-      <div class="text-center mb-6 mt-4">
-        <h1 class="text-[16px] text-[#4fc3f7] uppercase mb-3">MysteryDrop</h1>
-        <h2 class="text-[16px] text-white leading-tight">Користувацька угода</h2>
+    <!-- Экран соглашения - ПОДНЯТ НА 1 СМ ВЫШЕ -->
+    <div id="agreement-screen" class="screen hidden flex-col h-[600px]">
+      <div class="text-center mb-4 mt-[-10px]"> <!-- Добавлен отрицательный margin-top -->
+        <h1 class="text-[24px] text-[#4FC3F7] uppercase mb-2 text-stroke">MysteryDrop</h1>
+        <h2 class="text-[24px] text-white mb-4 text-stroke">Користувацька угода</h2>
       </div>
       
-      <div class="flex-1 overflow-y-auto bg-white/5 border border-white/10 rounded-xl p-4 mb-4">
-        <div class="text-[10px] space-y-4 leading-tight">
+      <div class="pixel-border bg-[#122B4A] p-4 mb-4 flex-1 overflow-y-auto"> <!-- Уменьшен margin-bottom -->
+        <div class="text-[10px] text-white leading-[1.6] space-y-4">
           <div>
-            <h3 class="text-[#4fc3f7] mb-2">1. Загальні положення</h3>
-            <p class="text-gray-300">Використовуючи гру, ви погоджується з цими правилами, розписавлена для розваги, дотримуйтесь етики та поваги до інших правил.</p>
+            <h3 class="text-[#4FC3F7] mb-2">1. Загальні положення</h3>
+            <p>Використовуючи гру, ви погоджується з цими правилами, розписавлена для розваги, дотримуйтесь етики та поваги до інших правил.</p>
           </div>
           
           <div>
-            <h3 class="text-[#4fc3f7] mb-2">2. Правила поведінки</h3>
-            <p class="text-gray-300">• Заборонено: образи, дискримінація, шахрайство, використання чітів чи експлоати.<br>
+            <h3 class="text-[#4FC3F7] mb-2">2. Правила поведінки</h3>
+            <p>• Заборонено: образи, дискримінація, шахрайство, використання чітів чи експлоати.<br>
             • Дозволено: чесна гра, дружне спілкування, дотримання правил серверів.</p>
           </div>
           
           <div>
-            <h3 class="text-[#4fc3f7] mb-2">3. Що можна ховати</h3>
-            <p class="text-gray-300">• Весурси, проанасти чи персонажів у спеціально відведених для цього місцях (особливо, громадян).<br>
+            <h3 class="text-[#4FC3F7] mb-2">3. Що можна ховати</h3>
+            <p>• Весурси, проанасти чи персонажів у спеціально відведених для цього місцях (особливо, громадян).<br>
             • Особисті стратегії та тактики, якщо вони не прийшли на право, а що не можна ховати.<br>
             • Заборонені: предмети, отримані через баги чи нечесні методи.</p>
           </div>
           
           <div>
-            <h3 class="text-[#4fc3f7] mb-2">4. Відповідальність</h3>
-            <p class="text-gray-300">За порушення правил можливі санкції: попередження, тимчасовий бан або видалення акцій та їх функцію, а й запишає за собою право змінювати правила.</p>
+            <h3 class="text-[#4FC3F7] mb-2">4. Відповідальність</h3>
+            <p>За порушення правил можливі санкції: попередження, тимчасовий бан або видалення акцій та їх функцію, а й запишає за собою право змінювати правила.</p>
           </div>
         </div>
       </div>
       
-      <button onclick="acceptAgreement()" class="w-full bg-gradient-to-r from-[#1976d2] to-[#1565c0] text-white text-[14px] py-4 rounded-xl shadow-lg transition-transform active:scale-95">Прийняти</button>
+      <button onclick="acceptAgreement()" class="pixel-button bg-[#1976D2] text-white text-[16px] px-8 py-4">
+        Прийняти
+      </button>
     </div>
 
     <!-- Экран профиля -->
-    <div id="profile-screen" class="screen hidden flex-col h-[600px] transition-opacity duration-300 opacity-0">
-      <div class="text-center mb-8 mt-4">
-        <h1 class="text-[16px] text-[#4fc3f7] uppercase mb-3">MysteryDrop</h1>
-        <h2 class="text-[16px] text-white leading-tight">Капітане,<br>назви себе!</h2>
+    <div id="profile-screen" class="screen hidden flex-col h-[600px]">
+      <div class="text-center mb-8">
+        <h1 class="text-[24px] text-[#4FC3F7] uppercase mb-2 text-stroke">MysteryDrop</h1>
+        <h2 class="text-[24px] text-white leading-tight mb-6 text-stroke">Капітане,<br>назви себе!</h2>
       </div>
       
-      <div class="my-8">
-        <input id="player-name" type="text" placeholder="Ігрове ім'я" class="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 backdrop-blur-sm text-[12px]">
+      <div class="mb-8">
+        <input id="player-name" type="text" placeholder="Ігрове ім'я" class="w-full pixel-border bg-[#122B4A] text-white text-[14px] px-4 py-3 placeholder-gray-400 text-center">
       </div>
       
-      <button onclick="showMainMenu()" class="w-full bg-gradient-to-r from-[#1976d2] to-[#1565c0] text-white text-[14px] py-4 rounded-xl shadow-lg transition-transform active:scale-95">Продовжити</button>
+      <button onclick="showMainMenu()" class="pixel-button bg-[#1976D2] text-white text-[16px] px-8 py-4">
+        Продовжити
+      </button>
     </div>
 
     <!-- Главное меню -->
-    <div id="main-menu" class="screen hidden flex-col h-[600px] transition-opacity duration-300 opacity-0">
-      <div class="text-center mb-8 mt-4">
-        <h1 class="text-[16px] text-[#4fc3f7] uppercase mb-3">MysteryDrop</h1>
-        <h2 class="text-[16px] text-white leading-tight">Вибери шлях,<br>капітане!</h2>
+    <div id="main-menu" class="screen hidden flex-col h-[600px]">
+      <div class="text-center mb-8">
+        <h1 class="text-[24px] text-[#4FC3F7] uppercase mb-2 text-stroke">MysteryDrop</h1>
+        <h2 class="text-[24px] text-white leading-tight mb-12 text-stroke">Вибери шлях,<br>капітане!</h2>
       </div>
       
-      <div class="flex-1 flex flex-col justify-center space-y-4">
-        <button onclick="showSearchTreasures()" class="w-full bg-gradient-to-r from-[#1976d2] to-[#1565c0] text-white text-[12px] py-4 rounded-xl shadow-lg transition-transform active:scale-95 flex items-center px-5">
-          <span class="text-[16px] mr-3">🔍</span>
-          <span class="flex-1 text-left">Шукати Скарб</span>
+      <div class="space-y-6 mb-12">
+        <button onclick="showSearchTreasures()" class="w-full pixel-button bg-[#1976D2] text-white text-[14px] py-4 flex items-center justify-center">
+          <span class="mr-3">🔍</span>
+          <span>Шукати Скарб</span>
         </button>
-        <button onclick="showHideTreasure()" class="w-full bg-gradient-to-r from-[#1976d2] to-[#1565c0] text-white text-[12px] py-4 rounded-xl shadow-lg transition-transform active:scale-95 flex items-center px-5">
-          <span class="text-[16px] mr-3">🏴‍☠️</span>
-          <span class="flex-1 text-left">Сховати Скарб</span>
+        <button onclick="showHideTreasure()" class="w-full pixel-button bg-[#1976D2] text-white text-[14px] py-4 flex items-center justify-center">
+          <span class="mr-3">🏴‍☠️</span>
+          <span>Сховати Скарб</span>
         </button>
       </div>
     </div>
 
     <!-- Экран поиска сокровищ -->
-    <div id="search-treasures" class="screen hidden flex-col h-[600px] transition-opacity duration-300 opacity-0">
-      <div class="text-center mb-6 mt-4">
-        <h1 class="text-[16px] text-[#4fc3f7] uppercase mb-3">MysteryDrop</h1>
-        <h2 class="text-[16px] text-white leading-tight">Доступні Скарби</h2>
+    <div id="search-treasures" class="screen hidden flex-col h-[600px]">
+      <div class="text-center mb-6">
+        <h1 class="text-[24px] text-[#4FC3F7] uppercase mb-2 text-stroke">MysteryDrop</h1>
+        <h2 class="text-[24px] text-white mb-6 text-stroke">Доступні Скарби</h2>
       </div>
       
-      <div id="treasure-list" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-4 mb-4 overflow-y-auto text-[10px]"></div>
+      <div id="treasure-list" class="pixel-border bg-[#122B4A] p-4 mb-6 flex-1 overflow-y-auto text-[10px] text-white">
+        <!-- Список сокровищ будет добавляться динамически -->
+      </div>
       
-      <button onclick="showMainMenu()" class="w-full bg-gradient-to-r from-[#455a64] to-[#37474f] text-white text-[14px] py-4 rounded-xl shadow-lg transition-transform active:scale-95">Назад</button>
+      <button onclick="showMainMenu()" class="pixel-button bg-[#455A64] text-white text-[16px] px-8 py-4">
+        Назад
+      </button>
     </div>
 
     <!-- Экран скрытия сокровища -->
-    <div id="hide-treasure" class="screen hidden flex-col h-[600px] transition-opacity duration-300 opacity-0">
-      <div class="text-center mb-6 mt-4">
-        <h1 class="text-[16px] text-[#4fc3f7] uppercase mb-3">MysteryDrop</h1>
-        <h2 class="text-[16px] text-white leading-tight">Сховай свій<br>Скарб!</h2>
+    <div id="hide-treasure" class="screen hidden flex-col h-[600px]">
+      <div class="text-center mb-6">
+        <h1 class="text-[24px] text-[#4FC3F7] uppercase mb-2 text-stroke">MysteryDrop</h1>
+        <h2 class="text-[24px] text-white leading-tight mb-6 text-stroke">Сховай свій<br>Скарб!</h2>
       </div>
       
-      <div class="my-6">
-        <input id="hide-description" type="text" placeholder="Опис скарбу" class="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 backdrop-blur-sm text-[12px]">
+      <div class="mb-6">
+        <input id="hide-description" type="text" placeholder="Опис скарбу" class="w-full pixel-border bg-[#122B4A] text-white text-[14px] px-4 py-3 placeholder-gray-400 text-center">
       </div>
       
-      <button onclick="submitHideTreasure()" class="w-full bg-gradient-to-r from-[#1976d2] to-[#1565c0] text-white text-[14px] py-4 rounded-xl shadow-lg transition-transform active:scale-95">Сховати</button>
-      <button onclick="showMainMenu()" class="w-full bg-gradient-to-r from-[#455a64] to-[#37474f] text-white text-[14px] py-4 mt-3 rounded-xl shadow-lg transition-transform active:scale-95">Назад</button>
+      <button onclick="submitHideTreasure()" class="pixel-button bg-[#1976D2] text-white text-[16px] px-8 py-4 mb-3">
+        Сховати
+      </button>
+      <button onclick="showMainMenu()" class="pixel-button bg-[#455A64] text-white text-[16px] px-8 py-4">
+        Назад
+      </button>
     </div>
   </div>
   <script src="app.js"></script>
