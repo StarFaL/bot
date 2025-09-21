@@ -1,9 +1,10 @@
 // --------------------------------------
 // Инициализация Telegram WebApp
 const tg = window.Telegram?.WebApp;
-console.log(tg); // Проверка доступности Telegram.WebApp
+console.log(tg); 
 if (tg) {
   tg.ready();
+  tg.setHeaderColor('#00000000')
   tg.expand();
   tg.MainButton?.hide();
   window.addEventListener('resize', () => tg.expand());
