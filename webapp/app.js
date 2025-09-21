@@ -1,6 +1,7 @@
 // --------------------------------------
 // Инициализация Telegram WebApp
 const tg = window.Telegram?.WebApp;
+console.log(tg); // Проверка доступности Telegram.WebApp
 if (tg) {
   tg.ready();
   tg.expand();
@@ -39,6 +40,7 @@ function showScreen(id) {
 
   setTimeout(() => {
     const screen = document.getElementById(id);
+    console.log(document.getElementById(id)); // Проверка DOM-элемента
     if (!screen) return;
     screen.classList.remove('hidden');
     setTimeout(() => {
