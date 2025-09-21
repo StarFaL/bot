@@ -1,23 +1,26 @@
+// app.js
+
+// --------------------------------------
+// Инициализация Telegram WebApp
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user?.id || null;
+tg.ready();
+tg.expand();
+tg.enableClosingConfirmation();
 
-// Инициализация приложения
-function initApp() {
-  tg.expand();
-  tg.enableClosingConfirmation();
-  
-  // Показываем стартовый экран
-  showScreen('start-screen');
-}
+// Получаем данные пользователя
+const user = tg.initDataUnsafe.user || {};
+const userId = user.id || null;
+const username = user.username || `${user.first_name || ''} ${user.last_name || ''}`.trim();
 
-// Показать экран
+// --------------------------------------
+// Функция для плавного переключения экранов
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => {
     s.classList.add('hidden');
     s.classList.remove('opacity-100');
     s.classList.add('opacity-0');
   });
-  
+
   setTimeout(() => {
     const screen = document.getElementById(id);
     screen.classList.remove('hidden');
@@ -27,6 +30,9 @@ function showScreen(id) {
     }, 10);
   }, 10);
 }
+
+// --------------------------------------
+// Функции для кнопок
 
 function showAgreement() {
   showScreen('agreement-screen');
@@ -38,16 +44,22 @@ function acceptAgreement() {
 }
 
 function showMainMenu() {
-  const name = document.getElementById('player-name').value;
+  const name = document.getElementById('player-name').value.trim();
   if (name) {
     tg.sendData(JSON.stringify({ action: 'set_profile', name, user_id: userId }));
+    showScreen('main-menu');
+  } else {
+    alert('Введи своє ім\'я!');
   }
-  showScreen('main-menu');
 }
 
 function showSearchTreasures() {
   tg.sendData(JSON.stringify({ action: 'get_treasures', user_id: userId }));
   showScreen('search-treasures');
+
+  // Пример заполнения списка (можно заменить на реальные данные с бота)
+  const list = document.getElementById('treasure-list');
+  list.innerHTML = '<p class="text-gray-300">Зачекай, завантажуємо скарби...</p>';
 }
 
 function showHideTreasure() {
@@ -55,13 +67,24 @@ function showHideTreasure() {
 }
 
 function submitHideTreasure() {
-  const desc = document.getElementById('hide-description').value;
+  const desc = document.getElementById('hide-description').value.trim();
   if (desc) {
     tg.sendData(JSON.stringify({ action: 'hide_treasure', description: desc, user_id: userId }));
     showMainMenu();
+  } else {
+    alert('Введи опис скарбу!');
   }
 }
 
-// Инициализация при загрузке
-document.addEventListener('DOMContentLoaded', initApp);
-tg.ready();
+// --------------------------------------
+// Инициализация приложения при загрузке
+document.addEventListener('DOMContentLoaded', () => {
+  tg.expand();
+  showScreen('start-screen');
+
+  // Выводим username на стартовом экране
+  const usernameEl = document.getElementById('tg-username');
+  if (usernameEl) {
+    usernameEl.textContent = username ? `Вітаємо, @${username}!` : 'Вітаємо, гравець!';
+  }
+});
