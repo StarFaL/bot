@@ -24,9 +24,9 @@ def notify_players(prize_id):
     for uid in data['players']:
         bot.send_message(uid, f"🆕 Новий скарб з'явився! ID: {prize_id}")
 
-#@bot.message_handler(commands=['start'])
-#def start(message):
- #   bot.send_message(message.chat.id, "🏴‍☠️ Вітаю у грі 'Полювання за Скарбами'! Відкрий меню і починай гру.")
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.chat.id, "🏴‍☠️ Вітаю у грі 'Полювання за Скарбами'! Відкрий меню і починай гру.")
 
 @bot.message_handler(content_types=['web_app_data'])
 def handle_webapp_data(message):
