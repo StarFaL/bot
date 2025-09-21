@@ -17,6 +17,21 @@ const userId = user.id || null;
 const username = user.username || `${user.first_name || ''} ${user.last_name || ''}`.trim();
 
 // --------------------------------------
+// Функции вибрации через Telegram HapticFeedback
+function vibrateTap() {
+  tg?.HapticFeedback?.impactOccurred("light"); // лёгкий "тап"
+}
+
+function vibrateConfirm() {
+  tg?.HapticFeedback?.notificationOccurred("success"); // подтверждение
+}
+
+function vibrateError() {
+  tg?.HapticFeedback?.notificationOccurred("error"); // ошибка
+}
+
+
+// --------------------------------------
 // Функции вибрации
 function vibrateTap() {
   if ("vibrate" in navigator) navigator.vibrate(50); // короткая вибрация
@@ -65,7 +80,7 @@ function acceptAgreement() {
 }
 
 function showMainMenu() {
-  
+
   const name = document.getElementById('player-name')?.value.trim();
   if (name) {
     vibrateConfirm();
