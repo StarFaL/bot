@@ -15,6 +15,14 @@ const userId = user.id || null;
 const username = user.username || `${user.first_name || ''} ${user.last_name || ''}`.trim();
 
 // --------------------------------------
+// Функция вибрации
+function vibrate() {
+  if ("vibrate" in navigator) {
+    navigator.vibrate(50); // короткая вибрация 50 мс
+  }
+}
+
+// --------------------------------------
 // Функция для плавного переключения экранов
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => {
@@ -35,6 +43,53 @@ function showScreen(id) {
 
 // --------------------------------------
 // Функции для кнопок
+
+function showAgreement() {
+  vibrate();
+  showScreen('agreement-screen');
+}
+
+function acceptAgreement() {
+  vibrate();
+  tg.sendData(JSON.stringify({ action: 'accept_agreement', user_id: userId }));
+  showScreen('profile-screen');
+}
+
+function showMainMenu() {
+  vibrate();
+  const name = document.getElementById('player-name').value.trim();
+  if (name) {
+    tg.sendData(JSON.stringify({ action: 'set_profile', name, user_id: userId }));
+    showScreen('main-menu');
+  } else {
+    alert('Введи своє ім\'я!');
+  }
+}
+
+function showSearchTreasures() {
+  vibrate();
+  tg.sendData(JSON.stringify({ action: 'get_treasures', user_id: userId }));
+  showScreen('search-treasures');
+
+  const list = document.getElementById('treasure-list');
+  list.innerHTML = '<p class="text-gray-300">Зачекай, завантажуємо скарби...</p>';
+}
+
+function showHideTreasure() {
+  vibrate();
+  showScreen('hide-treasure');
+}
+
+function submitHideTreasure() {
+  vibrate();
+  const desc = document.getElementById('hide-description').value.trim();
+  if (desc) {
+    tg.sendData(JSON.stringify({ action: 'hide_treasure', description: desc, user_id: userId }));
+    showMainMenu();
+  } else {
+    alert('Введи опис скарбу!');
+  }
+}
 
 function showAgreement() {
   showScreen('agreement-screen');
